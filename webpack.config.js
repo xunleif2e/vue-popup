@@ -51,8 +51,8 @@ module.exports = {
 if (process.env.NODE_ENV === 'production') {
   module.exports.entry = './src/popup/index.js'
   module.exports.output = Object.assign({}, module.exports.output, {
-    filename: 'popup.js',
-    library: "Popup",
+    filename: 'vue-popup.js',
+    library: "VuePopup",
     libraryTarget: 'umd'
   })
   module.exports.devtool = false
