@@ -23,8 +23,8 @@ export default {
   },
   mounted() {
     this.$refs.reference.forEach(item => {
-      item.addEventListener('mouseenter', this.handleMouseEnter)
-      item.addEventListener('mouseleave', this.handleMouseLeave)
+      item.el.addEventListener('mouseenter', this.handleMouseEnter.bind(this, item.value))
+      item.el.addEventListener('mouseleave', this.handleMouseLeave.bind(this, item.value))
     })
 
     // 鼠标进入弹出框时，弹出框不消失
@@ -38,10 +38,11 @@ export default {
     })
   },
   methods: {
-    handleMouseEnter(e) {
+    handleMouseEnter(value, e) {
       let root = this.$refs.root
       let target = e.target
       this.show = true
+      this.$emit('show', value)
       this.$nextTick(() => {
         if (this.direction === 'top' || this.direction === 'bottom') {
           this.left = target.offsetLeft + (target.offsetWidth - root.offsetWidth) / 2
@@ -60,8 +61,9 @@ export default {
         }
       })
     },
-    handleMouseLeave(e) {
+    handleMouseLeave(value, e) {
       this.show = false
+      this.$emit('hide', value)
     }
   }
 }
