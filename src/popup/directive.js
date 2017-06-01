@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   bind(el, binding, vnode) {
     let popup = vnode.context.$refs[binding.arg]
     let item = {

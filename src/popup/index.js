@@ -1,9 +1,9 @@
-import directive from './directive'
-import Popup from './Popup.vue'
+const directive = require('./directive')
+const Popup = require('./Popup.vue')
 
 Popup.install = Vue => {
   Vue.directive('popup', directive)
   Vue.component(Popup.name, Popup)
 }
 
-export default Popup
+module.exports = Popup
