@@ -1,5 +1,5 @@
 <template>
-  <div v-show="show" :class="'popup-' + direction" ref="root" :style="{ left: left + 'px', top: top + 'px' }">
+  <div v-show="show" :class="'popup-' + direction" :style="{ left: left + 'px', top: top + 'px' }">
     <slot></slot>
   </div>
 </template>
@@ -39,35 +39,35 @@ export default {
     })
 
     // 鼠标进入弹出框时，弹出框不消失
-    this.$refs.root.addEventListener('mouseenter', () => {
+    this.$el.addEventListener('mouseenter', () => {
       this.show = true
     })
 
     // 鼠标离开弹出框时，弹出框消失
-    this.$refs.root.addEventListener('mouseleave', () => {
+    this.$el.addEventListener('mouseleave', () => {
       this.show = false
     })
   },
   methods: {
     handleMouseEnter(value, e) {
-      let root = this.$refs.root
-      let target = e.target
       this.show = true
       this.$emit('show', value)
       this.$nextTick(() => {
+        let root = this.$el.getBoundingClientRect() // get popup root dom rect
+        let target = e.target.getBoundingClientRect() // get trigger el rect
         if (this.direction === 'top' || this.direction === 'bottom') {
-          this.left = target.offsetLeft + (target.offsetWidth - root.offsetWidth) / 2
+          this.left = target.left + (target.width - root.width) / 2
           if (this.direction === 'top') {
-            this.top = target.offsetTop - root.offsetHeight - this.padding
+            this.top = target.top - root.height - this.padding
           } else {
-            this.top = target.offsetTop + target.offsetHeight + this.padding
+            this.top = target.top + target.height + this.padding
           }
         } else if (this.direction === 'left' || this.direction === 'right') {
-          this.top = target.offsetTop + (target.offsetHeight - root.offsetHeight) / 2
+          this.top = target.top + (target.height - root.height) / 2
           if (this.direction === 'left') {
-            this.left = target.offsetLeft - root.offsetWidth - this.padding
+            this.left = target.left - root.width - this.padding
           } else {
-            this.left = target.offsetLeft + target.offsetWidth + this.padding
+            this.left = target.left + target.width + this.padding
           }
         }
       })
