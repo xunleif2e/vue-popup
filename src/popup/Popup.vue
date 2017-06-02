@@ -8,11 +8,20 @@
 export default {
   name: 'Popup',
   props: {
+    // 是否放到 body 下
+    appendToBody: {
+      type: Boolean,
+      default: true
+    },
     direction: {
       type: String,
       default: 'bottom'
     },
-    padding: Number
+    // 弹出框与触发元素的间距
+    padding: {
+      type: Number,
+      defualt: 0
+    },
   },
   data() {
     return {
@@ -22,7 +31,7 @@ export default {
     }
   },
   mounted() {
-    document.body.appendChild(this.$el) // 将弹出框移动到 body 下
+    this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
     this.$refs.reference.forEach(item => {
       item.el.addEventListener('mouseenter', this.handleMouseEnter.bind(this, item.value))
