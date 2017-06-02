@@ -1,6 +1,6 @@
 # vue-popup
 
-> 一个 Vue.js 弹出框组件
+> A popup component for Vue.js
 
 ## Build Setup
 
@@ -15,4 +15,4 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, consult the [live demo](https://jsfiddle.net/wna4uv9e/).
