@@ -22,6 +22,8 @@ export default {
     }
   },
   mounted() {
+    document.body.appendChild(this.$el) // 将弹出框移动到 body 下
+
     this.$refs.reference.forEach(item => {
       item.el.addEventListener('mouseenter', this.handleMouseEnter.bind(this, item.value))
       item.el.addEventListener('mouseleave', this.handleMouseLeave.bind(this, item.value))
