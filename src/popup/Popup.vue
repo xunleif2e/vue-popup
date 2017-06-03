@@ -27,7 +27,8 @@ export default {
     return {
       show: false,
       left: 0,
-      top: 0
+      top: 0,
+      currentElement: null // current trigger element
     }
   },
   mounted() {
@@ -36,6 +37,7 @@ export default {
     this.$refs.reference.forEach(item => {
       item.el.addEventListener('mouseenter', this.handleMouseEnter.bind(this, item.value))
       item.el.addEventListener('mouseleave', this.handleMouseLeave.bind(this, item.value))
+      this.bindScroll(item.el) // bind scroll event
     })
 
     // 鼠标进入弹出框时，弹出框不消失
@@ -49,32 +51,52 @@ export default {
     })
   },
   methods: {
+    // bind all element's grandparent scroll event
+    bindScroll(el) {
+      el = el.parentNode
+      while(el) {
+        el.addEventListener('scroll', this.handleScroll)
+        el = el.parentNode
+      }
+    },
+    // compute the popup left and top relative to viewport
+    computePosition(root, target) {
+      root = root.getBoundingClientRect() // get popup root dom rect
+      target = target.getBoundingClientRect() // get trigger el rect
+
+      if (this.direction === 'top' || this.direction === 'bottom') {
+        this.left = target.left + (target.width - root.width) / 2
+        if (this.direction === 'top') {
+          this.top = target.top - root.height - this.padding
+        } else {
+          this.top = target.top + target.height + this.padding
+        }
+      } else if (this.direction === 'left' || this.direction === 'right') {
+        this.top = target.top + (target.height - root.height) / 2
+        if (this.direction === 'left') {
+          this.left = target.left - root.width - this.padding
+        } else {
+          this.left = target.left + target.width + this.padding
+        }
+      }
+    },
     handleMouseEnter(value, e) {
+      this.currentElement = e.target
       this.show = true
       this.$emit('show', value)
       this.$nextTick(() => {
-        let root = this.$el.getBoundingClientRect() // get popup root dom rect
-        let target = e.target.getBoundingClientRect() // get trigger el rect
-        if (this.direction === 'top' || this.direction === 'bottom') {
-          this.left = target.left + (target.width - root.width) / 2
-          if (this.direction === 'top') {
-            this.top = target.top - root.height - this.padding
-          } else {
-            this.top = target.top + target.height + this.padding
-          }
-        } else if (this.direction === 'left' || this.direction === 'right') {
-          this.top = target.top + (target.height - root.height) / 2
-          if (this.direction === 'left') {
-            this.left = target.left - root.width - this.padding
-          } else {
-            this.left = target.left + target.width + this.padding
-          }
-        }
+        this.computePosition(this.$el, e.target)
       })
     },
     handleMouseLeave(value, e) {
       this.show = false
       this.$emit('hide', value)
+    },
+    // recompute when scroll
+    handleScroll() {
+      if (this.show) {
+        this.computePosition(this.$el, this.currentElement)
+      }
     }
   }
 }
