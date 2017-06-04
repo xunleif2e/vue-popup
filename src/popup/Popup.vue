@@ -92,11 +92,18 @@ export default {
 
       this.edgeCheck(root, target, top, left)
     },
-    // border check
+    // edge check
     edgeCheck(root, target, top, left) {
+      let blr = this.direction === 'left' || this.direction === 'right'
+      let wih = window.innerHeight
       if (top < 0) {
-        if (this.direction === 'left' || this.direction === 'right') {
+        if (blr) {
           top = 0
+          this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
+        }
+      } else if (top + root.height > wih) {
+        if (blr) { 
+          top = wih - root.height
           this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
         }
       } else {
