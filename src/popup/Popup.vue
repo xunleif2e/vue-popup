@@ -1,6 +1,11 @@
 <template>
   <div v-show="show" :class="'popup-' + direction" :style="{ left: left + 'px', top: top + 'px' }">
     <slot></slot>
+    <span
+      class="popup-arrow"
+      :class="arrowClass"
+      :style="arrowStyle">
+    </span>
   </div>
 </template>
 
@@ -13,6 +18,7 @@ export default {
       type: Boolean,
       default: true
     },
+    arrowClass: String, // class of the arrow
     direction: {
       type: String,
       default: 'bottom'
@@ -25,6 +31,7 @@ export default {
   },
   data() {
     return {
+      arrowStyle: {},
       show: false,
       left: 0,
       top: 0,
@@ -54,7 +61,7 @@ export default {
     // bind all element's grandparent scroll event
     bindScroll(el) {
       el = el.parentNode
-      while(el) {
+      while (el) {
         el.addEventListener('scroll', this.handleScroll)
         el = el.parentNode
       }
@@ -64,21 +71,39 @@ export default {
       root = root.getBoundingClientRect() // get popup root dom rect
       target = target.getBoundingClientRect() // get trigger el rect
 
+      let left = 0
+      let top = 0
+
       if (this.direction === 'top' || this.direction === 'bottom') {
-        this.left = target.left + (target.width - root.width) / 2
+        left = target.left + (target.width - root.width) / 2
         if (this.direction === 'top') {
-          this.top = target.top - root.height - this.padding
+          top = target.top - root.height - this.padding
         } else {
-          this.top = target.top + target.height + this.padding
+          top = target.top + target.height + this.padding
         }
       } else if (this.direction === 'left' || this.direction === 'right') {
-        this.top = target.top + (target.height - root.height) / 2
+        top = target.top + (target.height - root.height) / 2
         if (this.direction === 'left') {
-          this.left = target.left - root.width - this.padding
+          left = target.left - root.width - this.padding
         } else {
-          this.left = target.left + target.width + this.padding
+          left = target.left + target.width + this.padding
         }
       }
+
+      this.edgeCheck(root, target, top, left)
+    },
+    // border check
+    edgeCheck(root, target, top, left) {
+      if (top < 0) {
+        if (this.direction === 'left' || this.direction === 'right') {
+          top = 0
+          this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
+        }
+      } else {
+        this.arrowStyle = {}
+      }
+      this.top = top
+      this.left = left
     },
     handleMouseEnter(value, e) {
       this.currentElement = e.target

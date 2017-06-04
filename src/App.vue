@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <popup
+      arrow-class="drop-arrow"
       class="drop-msg-fail"
       direction="right"
       :padding="0"
@@ -11,7 +12,6 @@
         <a href="javascript:;" @click="handleRetry">重发</a>
         <a href="javascript:;" @click="handleRemove">删除</a>
       </div>
-      <span class="drop-arrow"></span>
     </popup>
     <div v-for="(b, i) in list" class="row">
       <a v-popup:popup-ico="i" class="btn" :class="{ gray: b }" href="javascript:;">
