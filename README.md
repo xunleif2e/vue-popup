@@ -1,44 +1,44 @@
 # vue-popup
 
-> A popup component for Vue.js
+> 一个 Vue.js 弹出框组件，供迅雷内部使用。
 
 ![popup](./popup.jpg)
 
-## Installation
+## 安装
 
 ### CDN
 
 ```html
-<script src="//cdn.jsdelivr.net/gh/beyoursun/vue-popup@v0.1-beta.1/dist/vue-popup.js"></script>
+<script src="//cdn.jsdelivr.net/gh/beyoursun/vue-popup/dist/vue-popup.js"></script>
 ```
 
 ### NPM
 
 ```bash
-npm install vue-popup --save
+npm install @xunlei/vue-popup --save
 ```
 
-## Usage
+## 使用
 
-First, you need to use the plugin.
+首选，你需要注册插件。
 
 ```js
 import Vue from 'vue'
 import VuePopup from 'vue-popup'
 
-Vue.use(VuePopup) // use plugin
+Vue.use(VuePopup)
 ```
 
-Then, use the `<popup>` component on your `.vue` file.
+在你的 `.vue` 文件中使用 `popup` 组件。
 
 ```html
 <template>
   <div>
     <popup ref="popup1">
-      <h3>Title in popup</h3>
-      <p>This is a paragraph in popup.</p>
+      <h3>标题</h3>
+      <p>这是一段内容。</p>
     </popup>
-    <a v-popup:popup1 href="javascript">Show Popup</a>
+    <a v-popup:popup1 href="javascript:;">展示弹出框</a>
   </div>
 </template>
 
@@ -47,9 +47,60 @@ export default {}
 </script>
 ```
 
-Add `ref` in your popup, then in your button, use `v-popup` directive to link the button and the popover.
+在你的 `popup` 组件上添加 `ref` 引用，然后使用 `v-popup` 指令来将按钮映射到弹出框上。
 
-There is a [simple live demo](https://jsfiddle.net/jwdon3fg/).
+这是一个简单的[在线示例](https://jsfiddle.net/bbsun/ftdtdu3r/)。
+
+## API
+
+### 属性 Prop
+
+属性名 | 描述 | 类型 | 可选值 | 默认值
+-- | -- | -- | -- | --
+append-to-body | 是否放到 body 下 | Boolean | - | true
+arrow-class | 箭头的类 | String | - | -
+direction | 弹出框方向 | String | top/right/bottom/left | bottom
+padding | 弹出框与触发元素的间距 | Number | - | 0
+
+### 指令 Directive
+
+#### `v-popup`
+
+- **描述：** 指令需要添加在触发弹出框的元素上。
+
+- **参数：**
+  - `popupRef (required)` - 用于匹配特定弹出框。
+
+- **类型：**
+  - `any (optional)` - 在触发事件时传入的回调参数。
+
+- **示例：**
+
+```html
+<popup
+  ref="popup1"
+  @show="handleShow"
+  @hide="handleHide">
+</popup>
+<a v-popup:popup1="val"></a>
+
+<scirpt>
+export default {
+  ...
+  methods: {
+    handleShow (val) { },
+    handleHide (val) { }
+  }
+}
+</script>
+```
+
+### 事件 Event
+
+事件名 | 描述 | 回调参数
+-- | -- | --
+show | 弹出框展示事件 | value
+hide | 弹出框隐藏事件 | value
 
 ## Build Setup
 

@@ -26,7 +26,7 @@ export default {
     // 弹出框与触发元素的间距
     padding: {
       type: Number,
-      defualt: 0
+      default: 0
     },
   },
   data() {
