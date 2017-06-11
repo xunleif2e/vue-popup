@@ -84,69 +84,71 @@ export default {
 
       let left = 0
       let top = 0
+      let topValue = target.top - root.height - this.padding
+      let rightValue = target.left + target.width + this.padding
+      let bottomValue = target.top + target.height + this.padding
+      let leftValue = target.left - root.width - this.padding
 
       if (this.direction === 'top' || this.direction === 'bottom') {
         left = target.left + (target.width - root.width) / 2
+
+        if (left < 0) { // 弹出框左边缘超出视区时
+          left = 0
+          this.arrowStyle = { left: (target.left + target.right) / 2 + 'px' }
+        } else if (left + root.width > window.innerWidth) { // 弹出框右边缘超出视区时
+          left = window.innerWidth - root.width
+          this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
+        } else { // 弹出框水平方向完全在视区
+          delete this.arrowStyle.left
+        }
+
         if (this.direction === 'top') {
-          top = target.top - root.height - this.padding
+          if (topValue < 0 && bottomValue + root.height <= window.innerHeight) {
+            top = bottomValue
+            this.secondDirection = 'bottom'
+          } else {
+            top = topValue
+            this.secondDirection = ''
+          }
         } else {
-          top = target.top + target.height + this.padding
+          if (bottomValue + root.height > window.innerHeight && topValue >= 0) {
+            top = topValue
+            this.secondDirection = 'top'
+          } else {
+            top = bottomValue
+            this.secondDirection = ''
+          }
         }
       } else if (this.direction === 'left' || this.direction === 'right') {
         top = target.top + (target.height - root.height) / 2
-        if (this.direction === 'left') {
-          left = target.left - root.width - this.padding
-        } else {
-          left = target.left + target.width + this.padding
-        }
-      }
 
-      this.edgeCheck(root, target, top, left)
-    },
-    // edge check
-    edgeCheck(root, target, top, left) {
-      let wih = window.innerHeight
-
-      if (top < 0) {
-        if (this.direction === 'left' || this.direction === 'right') {
+        if (top < 0) { // 弹出框上边缘超出视区时
           top = 0
-          this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
-        } else if (this.direction === 'top') {
-          top = target.top + target.height + this.padding
-          this.secondDirection = 'bottom'
+          this.arrowStyle = { top: (target.top + target.bottom) / 2 + 'px' }
+        } else if (top + root.height > window.innerHeight) { // 弹出框右边缘超出视区时
+          top = window.innerHeight - root.height
+          this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
+        } else { // 弹出框水平方向完全在视区
+          delete this.arrowStyle.top
         }
-      } else if (top + root.height > wih) {
-        if (this.direction === 'left' || this.direction === 'right') { 
-          top = wih - root.height
-          this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
-        } else if (this.direction === 'bottom') {
-          top = target.top - root.height - this.padding
-          this.secondDirection = 'top'
-        }
-      } else {
-        this.arrowStyle = {}
-        this.secondDirection = ''
-      }
 
-      if (left < 0) {
-        if (this.direction === 'top' || this.direction === 'bottom') {
-          left = 0
-          this.arrowStyle = { left:  (target.left + target.right) / 2 - left + 'px' }
-        } else if (this.direction === 'left') {
-          left = target.left + target.width + this.padding
-          this.secondDirection = 'right'
+        if (this.direction === 'left') {
+          if (leftValue < 0 && rightValue + root.width <= window.innerWidth) {
+            left = rightValue
+            this.secondDirection = 'right'
+          } else {
+            left = leftValue
+            this.secondDirection = ''
+          }
+        } else {
+          if (rightValue + root.width > window.innerWidth && leftValue >= 0) {
+            left = leftValue
+            this.secondDirection = 'left'
+          } else {
+            left = rightValue
+            this.secondDirection = ''
+          }
         }
-      } else if (left + root.width > window.innerWidth) {
-        if (this.direction === 'top' || this.direction === 'bottom') { 
-          left = window.innerWidth - root.width
-          this.arrowStyle = { left:  (target.left + target.right) / 2 - left + 'px' }
-        } else if (this.direction === 'bottom') {
-          left = target.left - root.width - this.padding
-          this.secondDirection = 'left'
-        }
-      } else {
-        this.arrowStyle = {}
-        this.secondDirection = ''
       }
 
       this.top = top

@@ -14,7 +14,7 @@
       </div>
     </popup>
     <div v-for="(b, i) in list" class="row">
-      <a v-popup:popup-ico="i" class="btn" :class="{ gray: b }" href="javascript:;">
+      <a v-popup:popup-ico="i" class="btn" :class="{ gray: b }">
         <span>{{ b ? '发送成功' : '发送失败' }}</span>
       </a>
     </div>
