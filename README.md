@@ -4,7 +4,7 @@
 
 ![popup](./popup.jpg)
 
-## 安装
+## 安装 Installation
 
 ### CDN
 
@@ -18,7 +18,7 @@
 npm install @xunlei/vue-popup --save
 ```
 
-## 使用
+## 使用 Usage
 
 首选，你需要注册插件。
 
@@ -51,7 +51,7 @@ export default {}
 
 这是一个简单的[在线示例](https://jsfiddle.net/bbsun/ftdtdu3r/)。
 
-## API
+## 接口 API
 
 ### 属性 Prop
 
@@ -102,7 +102,7 @@ export default {
 show | 弹出框展示事件 | value
 hide | 弹出框隐藏事件 | value
 
-## Build Setup
+## 构建流程 Build Setup
 
 ```bash
 # clone the project repo
@@ -117,3 +117,12 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+
+## 更新日志 ChangeLog
+
+### 0.2.0 | 2017.6.11
+
+- 新增 弹出框边缘不会超出视区
+- 新增 滚动时对弹出框位置进行重新计算
+- 更新 使用 `getBoundingClientRect` 方法来获取元素位置
+- 新增 `append-to-body` 属性
