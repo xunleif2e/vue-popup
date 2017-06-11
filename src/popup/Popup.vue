@@ -1,5 +1,5 @@
 <template>
-  <div v-show="show" :class="'popup-' + direction" :style="{ left: left + 'px', top: top + 'px' }">
+  <div v-show="show" :class="directionClass" :style="{ left: left + 'px', top: top + 'px' }">
     <slot></slot>
     <span
       class="popup-arrow"
@@ -32,10 +32,21 @@ export default {
   data() {
     return {
       arrowStyle: {},
+      directionMap: {
+        top: 'height',
+        left: 'width'
+      },
+      secondDirection: '',
       show: false,
       left: 0,
       top: 0,
       currentElement: null // current trigger element
+    }
+  },
+  computed: {
+    directionClass() {
+      if (this.secondDirection === '') return 'popup-' + this.direction
+      else return 'popup-' + this.secondDirection
     }
   },
   mounted() {
@@ -94,21 +105,50 @@ export default {
     },
     // edge check
     edgeCheck(root, target, top, left) {
-      let blr = this.direction === 'left' || this.direction === 'right'
       let wih = window.innerHeight
+
       if (top < 0) {
-        if (blr) {
+        if (this.direction === 'left' || this.direction === 'right') {
           top = 0
           this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
+        } else if (this.direction === 'top') {
+          top = target.top + target.height + this.padding
+          this.secondDirection = 'bottom'
         }
       } else if (top + root.height > wih) {
-        if (blr) { 
+        if (this.direction === 'left' || this.direction === 'right') { 
           top = wih - root.height
           this.arrowStyle = { top:  (target.bottom + target.top) / 2 - top + 'px' }
+        } else if (this.direction === 'bottom') {
+          top = target.top - root.height - this.padding
+          this.secondDirection = 'top'
         }
       } else {
         this.arrowStyle = {}
+        this.secondDirection = ''
       }
+
+      if (left < 0) {
+        if (this.direction === 'top' || this.direction === 'bottom') {
+          left = 0
+          this.arrowStyle = { left:  (target.left + target.right) / 2 - left + 'px' }
+        } else if (this.direction === 'left') {
+          left = target.left + target.width + this.padding
+          this.secondDirection = 'right'
+        }
+      } else if (left + root.width > window.innerWidth) {
+        if (this.direction === 'top' || this.direction === 'bottom') { 
+          left = window.innerWidth - root.width
+          this.arrowStyle = { left:  (target.left + target.right) / 2 - left + 'px' }
+        } else if (this.direction === 'bottom') {
+          left = target.left - root.width - this.padding
+          this.secondDirection = 'left'
+        }
+      } else {
+        this.arrowStyle = {}
+        this.secondDirection = ''
+      }
+
       this.top = top
       this.left = left
     },
@@ -128,6 +168,14 @@ export default {
     handleScroll() {
       if (this.show) {
         this.computePosition(this.$el, this.currentElement)
+      }
+    },
+    // whether it is in direction line
+    isDirectionLine(direction) {
+      if (direction === 'top' || direction === 'bottom') {
+        return this.direction === 'top' || this.direction === 'bottom'
+      } else {
+        return this.direction === 'left' || this.direction === 'right'
       }
     }
   }
