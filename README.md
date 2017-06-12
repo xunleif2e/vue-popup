@@ -1,6 +1,6 @@
 # vue-popup
 
-> 一个 Vue.js 弹出框组件，供迅雷内部使用。
+> 一个 Vue.js 弹出框组件，供迅雷内部使用。受到 [Element Popover](http://element.eleme.io/#/zh-CN/component/popover) 的启发。
 
 ![popup](./popup.jpg)
 
@@ -66,6 +66,7 @@ export default {}
 append-to-body | 是否放到 body 下 | Boolean | - | true
 arrow-class | 箭头的类 | String | - | -
 direction | 弹出框方向 | String | top/right/bottom/left | bottom
+display (.sync) | 是否可见 | Boolean | - | false
 padding | 弹出框与触发元素的间距 | Number | - | 0
 
 ### 事件 Event
@@ -146,6 +147,7 @@ npm run build
 
 ### 0.2.1 | 2017.6.12
 
+- 新增 display 是否可见属性
 - 更新 README.md
 
 ## License
