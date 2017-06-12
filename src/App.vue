@@ -4,6 +4,7 @@
       arrow-class="drop-arrow"
       class="drop-msg-fail"
       direction="right"
+      :display.sync="showPopup"
       :padding="0"
       ref="popup-ico"
       @show="handlePopupShow">
@@ -29,6 +30,7 @@ export default {
   data () {
     return {
       current: 0,
+      showPopup: false,
       list: Array.from({ length: 10 }, () => false)
     }
   },
@@ -37,9 +39,11 @@ export default {
       this.current = value
     },
     handleRetry() {
+      this.showPopup = false
       this.$set(this.list, this.current, true)
     },
     handleRemove() {
+      this.showPopup = false
       this.list.splice(this.current, 1)
     }
   }
