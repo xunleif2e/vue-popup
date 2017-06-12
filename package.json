@@ -1,6 +1,6 @@
 {
   "name": "@xunlei/vue-popup",
-  "description": "a popup component for Vue.js",
+  "description": "一个 Vue.js 弹出框组件，供迅雷内部使用。",
   "version": "0.2.1",
   "author": "sunbinbin <sunbinbin@xunlei.com>",
   "private": true,
