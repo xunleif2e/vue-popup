@@ -1,8 +1,14 @@
 # vue-popup
 
-> 一个 Vue.js 弹出框组件，供迅雷内部使用。
+> 一个 Vue.js 弹出框组件，供迅雷内部使用。受到 [Element Popover](http://element.eleme.io/#/zh-CN/component/popover) 的启发。
 
 ![popup](./popup.jpg)
+
+特性：
+
+- 动态计算弹出框位置
+- 边缘检测，保证弹出框边缘不会超出视区
+- 单个弹出框可以匹配多个触发元素（多个元素写在同一模板下）
 
 ## 安装 Installation
 
@@ -60,7 +66,15 @@ export default {}
 append-to-body | 是否放到 body 下 | Boolean | - | true
 arrow-class | 箭头的类 | String | - | -
 direction | 弹出框方向 | String | top/right/bottom/left | bottom
+display (.sync) | 是否可见 | Boolean | - | false
 padding | 弹出框与触发元素的间距 | Number | - | 0
+
+### 事件 Event
+
+事件名 | 描述 | 回调参数
+-- | -- | --
+show | 弹出框展示事件 | value
+hide | 弹出框隐藏事件 | value
 
 ### 指令 Directive
 
@@ -95,12 +109,16 @@ export default {
 </script>
 ```
 
-### 事件 Event
+### 样式 Style
 
-事件名 | 描述 | 回调参数
--- | -- | --
-show | 弹出框展示事件 | value
-hide | 弹出框隐藏事件 | value
+弹出框组件只会添加必要的样式和类，如 top, left...具体的样式需要用户给出。
+
+弹出框在改变方向时，会分别为弹出框的根元素添加以下四个类，用以匹配不同方向的样式。
+
+- 弹出框在触发元素上方时：popup-top
+- 弹出框在触发元素下方时：popup-bottom
+- 弹出框在触发元素左边时：popup-left
+- 弹出框在触发元素右边时：popup-right
 
 ## 构建流程 Build Setup
 
@@ -126,3 +144,12 @@ npm run build
 - 新增 滚动时对弹出框位置进行重新计算
 - 更新 使用 `getBoundingClientRect` 方法来获取元素位置
 - 新增 `append-to-body` 属性
+
+### 0.2.1 | 2017.6.12
+
+- 新增 display 是否可见属性
+- 更新 README.md
+
+## License
+
+MIT

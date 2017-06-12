@@ -1,5 +1,5 @@
 <template>
-  <div v-show="show" :class="directionClass" :style="{ left: left + 'px', top: top + 'px' }">
+  <div v-show="display" :class="directionClass" :style="{ left: left + 'px', top: top + 'px' }">
     <slot></slot>
     <span
       class="popup-arrow"
@@ -23,6 +23,11 @@ export default {
       type: String,
       default: 'bottom'
     },
+    // 是否显示弹出框
+    display: {
+      type: Boolean,
+      default: false
+    },
     // 弹出框与触发元素的间距
     padding: {
       type: Number,
@@ -37,7 +42,6 @@ export default {
         left: 'width'
       },
       secondDirection: '',
-      show: false,
       left: 0,
       top: 0,
       currentElement: null // current trigger element
@@ -60,12 +64,12 @@ export default {
 
     // 鼠标进入弹出框时，弹出框不消失
     this.$el.addEventListener('mouseenter', () => {
-      this.show = true
+      this.$emit('update:display', true)
     })
 
     // 鼠标离开弹出框时，弹出框消失
     this.$el.addEventListener('mouseleave', () => {
-      this.show = false
+      this.$emit('update:display', false)
     })
   },
   methods: {
@@ -156,19 +160,19 @@ export default {
     },
     handleMouseEnter(value, e) {
       this.currentElement = e.target
-      this.show = true
+      this.$emit('update:display', true)
       this.$emit('show', value)
       this.$nextTick(() => {
         this.computePosition(this.$el, e.target)
       })
     },
     handleMouseLeave(value, e) {
-      this.show = false
+      this.$emit('update:display', false)
       this.$emit('hide', value)
     },
     // recompute when scroll
     handleScroll() {
-      if (this.show) {
+      if (this.display) {
         this.computePosition(this.$el, this.currentElement)
       }
     },
