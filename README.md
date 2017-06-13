@@ -131,7 +131,7 @@ export default {
 
 ```bash
 # clone the project repo
-git clone git@github.com:beyoursun/vue-popup.git
+git clone https://github.com/beyoursun/vue-popup.git
 
 # install dependencies
 cd vue-popup && npm install
