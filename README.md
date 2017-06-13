@@ -40,7 +40,7 @@ Vue.use(VuePopup)
 ```html
 <template>
   <div>
-    <popup ref="popup1">
+    <popup ref="popup1" :display.sync="showPop">
       <h3>标题</h3>
       <p>这是一段内容。</p>
     </popup>
@@ -49,11 +49,17 @@ Vue.use(VuePopup)
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      showPop: false
+    }
+  }
+}
 </script>
 ```
 
-在你的 `popup` 组件上添加 `ref` 引用，然后使用 `v-popup` 指令来将按钮映射到弹出框上。
+在你的 `popup` 组件上添加 `ref` 引用，然后使用 `v-popup` 指令来将按钮映射到弹出框上。`display` 特性用来配置弹出框是否可见。
 
 这是一个简单的[在线示例](https://jsfiddle.net/bbsun/ftdtdu3r/)。
 
@@ -93,6 +99,7 @@ hide | 弹出框隐藏事件 | value
 ```html
 <popup
   ref="popup1"
+  :display.sync="showPop"
   @show="handleShow"
   @hide="handleHide">
 </popup>
@@ -147,7 +154,7 @@ npm run build
 
 ### 0.2.1 | 2017.6.12
 
-- 新增 display 是否可见属性
+- 新增 `display` 是否可见属性
 - 更新 README.md
 
 ## License
