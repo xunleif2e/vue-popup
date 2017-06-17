@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       arrowStyle: {},
+      delay: 200, // 鼠标离开元素时，延迟隐藏时间
       directionMap: {
         top: 'height',
         left: 'width'
@@ -44,7 +45,8 @@ export default {
       secondDirection: '',
       left: 0,
       top: 0,
-      currentElement: null // current trigger element
+      currentElement: null, // current trigger element
+      willHide: false // 延时后是否消失
     }
   },
   computed: {
@@ -64,12 +66,20 @@ export default {
 
     // 鼠标进入弹出框时，弹出框不消失
     this.$el.addEventListener('mouseenter', () => {
+      this.willHide = false
       this.$emit('update:display', true)
+      this.$emit('show', this.value)
     })
 
     // 鼠标离开弹出框时，弹出框消失
     this.$el.addEventListener('mouseleave', () => {
-      this.$emit('update:display', false)
+      this.willHide = true
+      setTimeout(() => {
+        if (this.willHide) {
+          this.$emit('update:display', false)
+          this.$emit('hide', this.value)
+        }
+      }, this.delay)
     })
   },
   methods: {
@@ -159,6 +169,7 @@ export default {
       this.left = left
     },
     handleMouseEnter(value, e) {
+      this.willHide = false
       this.currentElement = e.target
       this.$emit('update:display', true)
       this.$emit('show', value)
@@ -167,8 +178,13 @@ export default {
       })
     },
     handleMouseLeave(value, e) {
-      this.$emit('update:display', false)
-      this.$emit('hide', value)
+      this.willHide = true
+      setTimeout(() => {
+        if (this.willHide) {
+          this.$emit('update:display', false)
+          this.$emit('hide', value)
+        }
+      }, this.delay)
     },
     // recompute when scroll
     handleScroll() {
