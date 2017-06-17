@@ -1,5 +1,5 @@
 <template>
-  <div v-show="display" :class="directionClass" :style="{ left: left + 'px', top: top + 'px' }">
+  <div :class="directionClass" :style="{ display: display ? 'block' : 'none', left: left + 'px', top: top + 'px' }">
     <slot></slot>
     <span
       class="popup-arrow"
