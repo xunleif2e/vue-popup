@@ -1,7 +1,7 @@
 {
   "name": "@xunlei/vue-popup",
   "description": "一个 Vue.js 弹出框组件，供迅雷内部使用。",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "author": "binbin <sunbinbin@xunlei.com>",
   "main": "dist/vue-popup.js",
   "module": "src/popup/index.js",
