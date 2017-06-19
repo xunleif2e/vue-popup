@@ -158,6 +158,12 @@ npm run build
 - 新增 `display` 是否可见属性
 - 更新 README.md
 
+### 0.3.0 | 2017.6.19
+
+- 新增 focus 触发方式
+- 更新 鼠标移除弹出框或触发元素时 延迟 100ms 消失
+- 更新 使用 style 绑定展示弹出框
+
 ## License
 
 MIT
