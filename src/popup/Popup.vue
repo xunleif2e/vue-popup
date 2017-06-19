@@ -1,5 +1,5 @@
 <template>
-  <div v-show="display" :class="directionClass" :style="{ left: left + 'px', top: top + 'px' }">
+  <div :class="directionClass" :style="{ display: display ? 'block' : 'none', left: left + 'px', top: top + 'px' }" tabindex="999">
     <slot></slot>
     <span
       class="popup-arrow"
@@ -33,10 +33,16 @@ export default {
       type: Number,
       default: 0
     },
+    // 触发方式
+    trigger: {
+      type: String,
+      default: 'hover'
+    }
   },
   data() {
     return {
       arrowStyle: {},
+      delay: 100, // 鼠标离开元素时，延迟隐藏时间
       directionMap: {
         top: 'height',
         left: 'width'
@@ -44,32 +50,55 @@ export default {
       secondDirection: '',
       left: 0,
       top: 0,
-      currentElement: null // current trigger element
+      currentElement: null, // current trigger element
+      willHide: false // 延时后是否消失
     }
   },
   computed: {
     directionClass() {
       if (this.secondDirection === '') return 'popup-' + this.direction
       else return 'popup-' + this.secondDirection
+    },
+    // 触发事件
+    triggerEvent () {
+      switch (this.trigger) {
+        case 'hover': return 'mouseenter'
+        case 'focus': return 'focus'
+      }
+    },
+    // 逆触发事件
+    untriggerEvent () {
+      switch (this.trigger) {
+        case 'hover': return 'mouseleave'
+        case 'focus': return 'blur'
+      }
     }
   },
   mounted() {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
     this.$refs.reference.forEach(item => {
-      item.el.addEventListener('mouseenter', this.handleMouseEnter.bind(this, item.value))
-      item.el.addEventListener('mouseleave', this.handleMouseLeave.bind(this, item.value))
+      item.el.addEventListener(this.triggerEvent, this.handleMouseEnter.bind(this, item.value))
+      item.el.addEventListener(this.untriggerEvent, this.handleMouseLeave.bind(this, item.value))
       this.bindScroll(item.el) // bind scroll event
     })
 
     // 鼠标进入弹出框时，弹出框不消失
-    this.$el.addEventListener('mouseenter', () => {
+    this.$el.addEventListener(this.triggerEvent, () => {
+      this.willHide = false
       this.$emit('update:display', true)
+      this.$emit('show', this.value)
     })
 
     // 鼠标离开弹出框时，弹出框消失
-    this.$el.addEventListener('mouseleave', () => {
-      this.$emit('update:display', false)
+    this.$el.addEventListener(this.untriggerEvent, () => {
+      this.willHide = true
+      setTimeout(() => {
+        if (this.willHide) {
+          this.$emit('update:display', false)
+          this.$emit('hide', this.value)
+        }
+      }, this.delay)
     })
   },
   methods: {
@@ -159,6 +188,7 @@ export default {
       this.left = left
     },
     handleMouseEnter(value, e) {
+      this.willHide = false
       this.currentElement = e.target
       this.$emit('update:display', true)
       this.$emit('show', value)
@@ -167,8 +197,13 @@ export default {
       })
     },
     handleMouseLeave(value, e) {
-      this.$emit('update:display', false)
-      this.$emit('hide', value)
+      this.willHide = true
+      setTimeout(() => {
+        if (this.willHide) {
+          this.$emit('update:display', false)
+          this.$emit('hide', value)
+        }
+      }, this.delay)
     },
     // recompute when scroll
     handleScroll() {
