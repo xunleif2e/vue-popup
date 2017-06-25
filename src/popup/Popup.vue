@@ -64,13 +64,19 @@ export default {
       switch (this.trigger) {
         case 'hover': return 'mouseenter'
         case 'focus': return 'focus'
+        case 'click': return 'click'
       }
     },
+    // 逆触发元素
+    unTriggerEl () {
+      return this.trigger === 'click' ? document : this.$el
+    },
     // 逆触发事件
-    untriggerEvent () {
+    unTriggerEvent () {
       switch (this.trigger) {
         case 'hover': return 'mouseleave'
         case 'focus': return 'blur'
+        case 'click': return 'click'
       }
     }
   },
@@ -78,20 +84,21 @@ export default {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
     this.$refs.reference.forEach(item => {
-      item.el.addEventListener(this.triggerEvent, this.handleMouseEnter.bind(this, item.value))
-      item.el.addEventListener(this.untriggerEvent, this.handleMouseLeave.bind(this, item.value))
+      item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
+      this.unTriggerEl.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
       this.bindScroll(item.el) // bind scroll event
     })
 
     // 鼠标进入弹出框时，弹出框不消失
-    this.$el.addEventListener(this.triggerEvent, () => {
+    this.$el.addEventListener(this.triggerEvent, e => {
+      e.stopPropagation()
       this.willHide = false
       this.$emit('update:display', true)
       this.$emit('show', this.value)
     })
 
     // 鼠标离开弹出框时，弹出框消失
-    this.$el.addEventListener(this.untriggerEvent, () => {
+    this.unTriggerEl.addEventListener(this.unTriggerEvent, () => {
       this.willHide = true
       setTimeout(() => {
         if (this.willHide) {
@@ -187,16 +194,19 @@ export default {
       this.top = top
       this.left = left
     },
-    handleMouseEnter(value, e) {
+    // 处理弹出框可见时
+    handleVisible(value, el, e) {
+      e.stopPropagation()
       this.willHide = false
-      this.currentElement = e.target
+      this.currentElement = el
       this.$emit('update:display', true)
       this.$emit('show', value)
       this.$nextTick(() => {
-        this.computePosition(this.$el, e.target)
+        this.computePosition(this.$el, this.currentElement)
       })
     },
-    handleMouseLeave(value, e) {
+    // 处理弹出框不可见时
+    handleInvisible(value, e) {
       this.willHide = true
       setTimeout(() => {
         if (this.willHide) {

@@ -6,6 +6,7 @@
       direction="right"
       :display.sync="showPopup"
       :padding="0"
+      trigger="click"
       ref="popup-ico"
       @show="handlePopupShow">
       <p>消息发送失败</p>
@@ -14,7 +15,7 @@
         <a href="javascript:;" @click="handleRemove">删除</a>
       </div>
     </popup>
-    <div v-for="(b, i) in list" class="row">
+    <div v-for="(b, i) in list" class="row" :key="i">
       <a v-popup:popup-ico="i" class="btn" :class="{ gray: b }" href="javascript:;">
         <span>{{ b ? '发送成功' : '发送失败' }}</span>
       </a>
