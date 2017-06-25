@@ -6,7 +6,7 @@
       direction="right"
       :display.sync="showPopup"
       :padding="0"
-      trigger="click"
+      trigger="hover"
       ref="popup-ico"
       @show="handlePopupShow">
       <p>消息发送失败</p>

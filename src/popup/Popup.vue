@@ -85,7 +85,10 @@ export default {
 
     this.$refs.reference.forEach(item => {
       item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
-      this.unTriggerEl.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
+
+      if (this.trigger !== 'click')
+        item.el.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
+      
       this.bindScroll(item.el) // bind scroll event
     })
 
@@ -99,13 +102,18 @@ export default {
 
     // 鼠标离开弹出框时，弹出框消失
     this.unTriggerEl.addEventListener(this.unTriggerEvent, () => {
-      this.willHide = true
-      setTimeout(() => {
-        if (this.willHide) {
-          this.$emit('update:display', false)
-          this.$emit('hide', this.value)
-        }
-      }, this.delay)
+      if (this.trigger === 'click') {
+        this.$emit('update:display', false)
+        this.$emit('hide', this.value)
+      } else {
+        this.willHide = true
+        setTimeout(() => {
+          if (this.willHide) {
+            this.$emit('update:display', false)
+            this.$emit('hide', this.value)
+          }
+        }, this.delay)
+      }
     })
   },
   methods: {
@@ -207,13 +215,18 @@ export default {
     },
     // 处理弹出框不可见时
     handleInvisible(value, e) {
-      this.willHide = true
-      setTimeout(() => {
-        if (this.willHide) {
-          this.$emit('update:display', false)
-          this.$emit('hide', value)
-        }
-      }, this.delay)
+      if (this.trigger === 'click') {
+        this.$emit('update:display', false)
+        this.$emit('hide', value)          
+      } else {
+        this.willHide = true
+        setTimeout(() => {
+          if (this.willHide) {
+            this.$emit('update:display', false)
+            this.$emit('hide', value)
+          }
+        }, this.delay)
+      }
     },
     // recompute when scroll
     handleScroll() {
