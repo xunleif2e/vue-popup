@@ -83,15 +83,6 @@ export default {
   mounted() {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
-    this.$refs.reference.forEach(item => {
-      item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
-
-      if (this.trigger !== 'click')
-        item.el.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
-      
-      this.bindScroll(item.el) // bind scroll event
-    })
-
     // 鼠标进入弹出框时，弹出框不消失
     this.$el.addEventListener(this.triggerEvent, e => {
       e.stopPropagation()
@@ -117,6 +108,15 @@ export default {
     })
   },
   methods: {
+    // 添加触发元素
+    addItem (item) {
+      item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
+
+      if (this.trigger !== 'click')
+        item.el.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
+      
+      this.bindScroll(item.el) // bind scroll event
+    },
     // bind all element's grandparent scroll event
     bindScroll(el) {
       el = el.parentNode

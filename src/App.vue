@@ -20,6 +20,7 @@
         <span>{{ b ? '发送成功' : '发送失败' }}</span>
       </a>
     </div>
+    <a @click="list.push(false)">点我</a>
   </div>
 </template>
 
