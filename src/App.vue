@@ -6,7 +6,7 @@
       direction="right"
       :display.sync="showPopup"
       :padding="0"
-      trigger="hover"
+      trigger="click"
       ref="popup-ico"
       @show="handlePopupShow">
       <p>消息发送失败</p>
@@ -20,7 +20,7 @@
         <span>{{ b ? '发送成功' : '发送失败' }}</span>
       </a>
     </div>
-    <a @click="list.push(false)">点我</a>
+    <a href="javascript:;" @click="list.push(false)">点我</a>
   </div>
 </template>
 

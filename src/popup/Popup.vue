@@ -92,7 +92,12 @@ export default {
     })
 
     // 鼠标离开弹出框时，弹出框消失
-    this.unTriggerEl.addEventListener(this.unTriggerEvent, () => {
+    this.unTriggerEl.addEventListener(this.unTriggerEvent, e => {
+      // 若触发类型为点击，且点击发生在当前触发元素上时，弹出框不消失，
+      if (this.trigger === 'click' && this.isClosest(e.target, this.currentElement)) {
+        return
+      }
+
       if (this.trigger === 'click') {
         this.$emit('update:display', false)
         this.$emit('hide', this.value)
@@ -204,7 +209,6 @@ export default {
     },
     // 处理弹出框可见时
     handleVisible(value, el, e) {
-      e.stopPropagation()
       this.willHide = false
       this.currentElement = el
       this.$emit('update:display', true)
@@ -240,6 +244,17 @@ export default {
         return this.direction === 'top' || this.direction === 'bottom'
       } else {
         return this.direction === 'left' || this.direction === 'right'
+      }
+    },
+
+    // 是否是祖先元素
+    isClosest(target, element) {
+      if (target === document) {
+        return false
+      } else if (target === element) {
+        return true
+      } else {
+        return this.isClosest(target.parentNode, element)
       }
     }
   }
