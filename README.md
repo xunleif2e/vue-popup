@@ -74,7 +74,7 @@ arrow-class | 箭头的类 | String | - | -
 direction | 弹出框方向 | String | top/right/bottom/left | bottom
 display (.sync) | 是否可见 | Boolean | - | false
 padding | 弹出框与触发元素的间距 | Number | - | 0
-trigger | 触发弹出框的事件类型 | String | hover/focus | hover
+trigger | 触发弹出框的事件类型 | String | hover/focus/click | hover
 
 ### 事件 Event
 
@@ -163,6 +163,11 @@ npm run build
 - 新增 focus 触发方式
 - 更新 鼠标移除弹出框或触发元素时 延迟 100ms 消失
 - 更新 使用 style 绑定展示弹出框
+
+### 0.3.2 | 2017.7.10
+
+- 新增 focus 触发方式
+- 支持列表新增触发元素
 
 ## License
 

@@ -1,11 +1,11 @@
 {
   "name": "@xunlei/vue-popup",
   "description": "一个 Vue.js 弹出框组件，供迅雷内部使用。",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "binbin <sunbinbin@xunlei.com>",
   "main": "dist/vue-popup.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 8082",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "devDependencies": {
