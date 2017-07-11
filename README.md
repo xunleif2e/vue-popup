@@ -75,6 +75,7 @@ direction | 弹出框方向 | String | top/right/bottom/left | bottom
 display (.sync) | 是否可见 | Boolean | - | false
 padding | 弹出框与触发元素的间距 | Number | - | 0
 trigger | 触发弹出框的事件类型 | String | hover/focus/click | hover
+scroll-show | 页面滚动时弹出框是否可见 | Boolean | - | true 
 
 ### 事件 Event
 

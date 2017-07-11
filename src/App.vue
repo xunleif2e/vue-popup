@@ -7,6 +7,7 @@
       :display.sync="showPopup"
       :padding="0"
       trigger="click"
+      :scroll-show="false"
       ref="popup-ico"
       @show="handlePopupShow">
       <p>消息发送失败</p>
