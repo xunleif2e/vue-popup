@@ -37,6 +37,11 @@ export default {
     trigger: {
       type: String,
       default: 'hover'
+    },
+    // 页面滚动时弹出框是否可见
+    scrollShow: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -221,7 +226,7 @@ export default {
     handleInvisible(value, e) {
       if (this.trigger === 'click') {
         this.$emit('update:display', false)
-        this.$emit('hide', value)          
+        this.$emit('hide', value)
       } else {
         this.willHide = true
         setTimeout(() => {
@@ -234,8 +239,15 @@ export default {
     },
     // recompute when scroll
     handleScroll() {
-      if (this.display) {
-        this.computePosition(this.$el, this.currentElement)
+      // 滚动时可见，计算弹出框位置
+      // 滚动时不可见，隐藏弹出框
+      if (this.scrollShow) {
+        if (this.display) {
+          this.computePosition(this.$el, this.currentElement)
+        }
+      } else {
+        this.$emit('update:display', false)
+        this.$emit('hide')
       }
     },
     // whether it is in direction line

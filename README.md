@@ -75,6 +75,7 @@ direction | 弹出框方向 | String | top/right/bottom/left | bottom
 display (.sync) | 是否可见 | Boolean | - | false
 padding | 弹出框与触发元素的间距 | Number | - | 0
 trigger | 触发弹出框的事件类型 | String | hover/focus/click | hover
+scroll-show | 页面滚动时弹出框是否可见 | Boolean | - | true 
 
 ### 事件 Event
 
@@ -168,6 +169,10 @@ npm run build
 
 - 新增 focus 触发方式
 - 支持列表新增触发元素
+
+### 0.3.3 | 2017.7.11
+
+- 新增 页面滚动时弹出框是否可见配置
 
 ## License
 
