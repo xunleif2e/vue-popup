@@ -1,12 +1,14 @@
 {
   "name": "@xunlei/vue-popup",
   "description": "一个 Vue.js 弹出框组件，供迅雷内部使用。",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "author": "binbin <sunbinbin@xunlei.com>",
   "main": "dist/vue-popup.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 8082",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "test": "echo \"no test command\"",
+    "lint": "eslint --ext js,vue src/"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
@@ -14,6 +16,13 @@
     "babel-preset-env": "^1.5.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
+    "eslint": "^4.2.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-html": "^3.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "file-loader": "^0.9.0",
     "style-loader": "^0.18.2",
     "vue": "^2.3.3",

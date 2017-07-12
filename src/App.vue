@@ -38,14 +38,14 @@ export default {
     }
   },
   methods: {
-    handlePopupShow(value) {
+    handlePopupShow (value) {
       this.current = value
     },
-    handleRetry() {
+    handleRetry () {
       this.showPopup = false
       this.$set(this.list, this.current, true)
     },
-    handleRemove() {
+    handleRemove () {
       this.showPopup = false
       this.list.splice(this.current, 1)
     }
