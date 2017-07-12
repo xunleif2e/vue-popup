@@ -1,5 +1,7 @@
 # vue-popup
 
+[![Build Status](https://travis-ci.org/beyoursun/vue-popup.svg?branch=master)](https://travis-ci.org/beyoursun/vue-popup)
+
 > 一个 Vue.js 弹出框组件，供迅雷内部使用。受到 [Element Popover](http://element.eleme.io/#/zh-CN/component/popover) 的启发。
 
 ![popup](./popup.jpg)
