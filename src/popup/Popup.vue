@@ -44,7 +44,7 @@ export default {
       default: true
     }
   },
-  data() {
+  data () {
     return {
       arrowStyle: {},
       delay: 100, // 鼠标离开元素时，延迟隐藏时间
@@ -60,7 +60,7 @@ export default {
     }
   },
   computed: {
-    directionClass() {
+    directionClass () {
       if (this.secondDirection === '') return 'popup-' + this.direction
       else return 'popup-' + this.secondDirection
     },
@@ -85,7 +85,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
     // 鼠标进入弹出框时，弹出框不消失
@@ -122,13 +122,14 @@ export default {
     addItem (item) {
       item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
 
-      if (this.trigger !== 'click')
+      if (this.trigger !== 'click') {
         item.el.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
-      
+      }
+
       this.bindScroll(item.el) // bind scroll event
     },
     // bind all element's grandparent scroll event
-    bindScroll(el) {
+    bindScroll (el) {
       el = el.parentNode
       while (el) {
         el.addEventListener('scroll', this.handleScroll)
@@ -136,7 +137,7 @@ export default {
       }
     },
     // compute the popup left and top relative to viewport
-    computePosition(root, target) {
+    computePosition (root, target) {
       root = root.getBoundingClientRect() // get popup root dom rect
       target = target.getBoundingClientRect() // get trigger el rect
 
@@ -213,7 +214,7 @@ export default {
       this.left = left
     },
     // 处理弹出框可见时
-    handleVisible(value, el, e) {
+    handleVisible (value, el, e) {
       this.willHide = false
       this.currentElement = el
       this.$emit('update:display', true)
@@ -223,7 +224,7 @@ export default {
       })
     },
     // 处理弹出框不可见时
-    handleInvisible(value, e) {
+    handleInvisible (value, e) {
       if (this.trigger === 'click') {
         this.$emit('update:display', false)
         this.$emit('hide', value)
@@ -238,7 +239,7 @@ export default {
       }
     },
     // recompute when scroll
-    handleScroll() {
+    handleScroll () {
       // 滚动时可见，计算弹出框位置
       // 滚动时不可见，隐藏弹出框
       if (this.scrollShow) {
@@ -251,7 +252,7 @@ export default {
       }
     },
     // whether it is in direction line
-    isDirectionLine(direction) {
+    isDirectionLine (direction) {
       if (direction === 'top' || direction === 'bottom') {
         return this.direction === 'top' || this.direction === 'bottom'
       } else {
@@ -260,7 +261,7 @@ export default {
     },
 
     // 是否是祖先元素
-    isClosest(target, element) {
+    isClosest (target, element) {
       if (target === document) {
         return false
       } else if (target === element) {

@@ -4,7 +4,7 @@ import Popup from './popup'
 
 Vue.use(Popup)
 
-new Vue({
+export default new Vue({
   el: '#app',
   render: h => h(App)
 })
