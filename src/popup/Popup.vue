@@ -93,33 +93,20 @@ export default {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
     // 鼠标进入弹出框时，弹出框不消失
-    this.$el.addEventListener(this.triggerEvent, e => {
-      e.stopPropagation()
-      this.willHide = false
-      this.$emit('update:display', true)
-      this.$emit('show', this.value)
-    })
+    this.$el.addEventListener(this.triggerEvent, this.handlePopupVisible)
 
     // 鼠标离开弹出框时，弹出框消失
-    this.unTriggerEl.addEventListener(this.unTriggerEvent, e => {
-      // 若触发类型为点击，且点击发生在当前触发元素上时，弹出框不消失，
-      if (this.trigger === 'click' && this.isClosest(e.target, this.currentElement)) {
-        return
-      }
+    this.unTriggerEl.addEventListener(this.unTriggerEvent, this.handlePopupInvisible)
+  },
 
-      if (this.trigger === 'click') {
-        this.$emit('update:display', false)
-        this.$emit('hide', this.value)
-      } else {
-        this.willHide = true
-        setTimeout(() => {
-          if (this.willHide) {
-            this.$emit('update:display', false)
-            this.$emit('hide', this.value)
-          }
-        }, this.delay)
-      }
-    })
+  beforeDestroy () {
+    console.log('beforeDestory')
+    this.$el.removeEventListener(this.triggerEvent, this.handlePopupVisible)
+    this.unTriggerEl.removeEventListener(this.unTriggerEvent, this.handlePopupInvisible)
+  },
+
+  destroyed () {
+    console.log('destoryed')
   },
 
   methods: {
@@ -283,7 +270,34 @@ export default {
         this.$emit('hide')
       }
     },
-    
+
+    handlePopupVisible (e) {
+      e.stopPropagation()
+      this.willHide = false
+      this.$emit('update:display', true)
+      this.$emit('show', this.value)
+    },
+
+    handlePopupInvisible (e) {
+      // 若触发类型为点击，且点击发生在当前触发元素上时，弹出框不消失，
+      if (this.trigger === 'click' && this.isClosest(e.target, this.currentElement)) {
+        return
+      }
+
+      if (this.trigger === 'click') {
+        this.$emit('update:display', false)
+        this.$emit('hide', this.value)
+      } else {
+        this.willHide = true
+        setTimeout(() => {
+          if (this.willHide) {
+            this.$emit('update:display', false)
+            this.$emit('hide', this.value)
+          }
+        }, this.delay)
+      }
+    },
+
     // whether it is in direction line
     isDirectionLine (direction) {
       if (direction === 'top' || direction === 'bottom') {
