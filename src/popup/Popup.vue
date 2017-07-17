@@ -12,6 +12,7 @@
 <script>
 export default {
   name: 'Popup',
+
   props: {
     // 是否放到 body 下
     appendToBody: {
@@ -44,6 +45,7 @@ export default {
       default: true
     }
   },
+
   data () {
     return {
       arrowStyle: {},
@@ -59,6 +61,7 @@ export default {
       willHide: false // 延时后是否消失
     }
   },
+
   computed: {
     directionClass () {
       if (this.secondDirection === '') return 'popup-' + this.direction
@@ -85,6 +88,7 @@ export default {
       }
     }
   },
+
   mounted () {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
@@ -117,6 +121,7 @@ export default {
       }
     })
   },
+
   methods: {
     // 添加触发元素
     addItem (item) {
@@ -130,6 +135,7 @@ export default {
 
       this.bindScroll(item.el) // bind scroll event
     },
+    
     // 移除触发元素
     removeItem (item) {
       item.el.removeEventListener(this.triggerEvent, item.el.handleVisible)
@@ -140,6 +146,7 @@ export default {
 
       this.unbindScroll(item.el)
     },
+
     // 绑定滚动事件
     bindScroll (el) {
       el = el.parentNode
@@ -148,6 +155,7 @@ export default {
         el = el.parentNode
       }
     },
+
     // 解绑滚动事件
     unbindScroll (el) {
       el = el.parentNode
@@ -156,6 +164,7 @@ export default {
         el = el.parentNode
       }
     },
+
     // compute the popup left and top relative to viewport
     computePosition (root, target) {
       root = root.getBoundingClientRect() // get popup root dom rect
@@ -233,6 +242,7 @@ export default {
       this.top = top
       this.left = left
     },
+
     // 处理弹出框可见时
     handleVisible (value, el, e) {
       this.willHide = false
@@ -243,6 +253,7 @@ export default {
         this.computePosition(this.$el, this.currentElement)
       })
     },
+
     // 处理弹出框不可见时
     handleInvisible (value, e) {
       if (this.trigger === 'click') {
@@ -258,6 +269,7 @@ export default {
         }, this.delay)
       }
     },
+
     // recompute when scroll
     handleScroll () {
       // 滚动时可见，计算弹出框位置
@@ -271,6 +283,7 @@ export default {
         this.$emit('hide')
       }
     },
+    
     // whether it is in direction line
     isDirectionLine (direction) {
       if (direction === 'top' || direction === 'bottom') {
