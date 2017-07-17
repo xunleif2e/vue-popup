@@ -21,7 +21,7 @@
         <span>{{ b ? '发送成功' : '发送失败' }}</span>
       </a>
     </div>
-    <a href="javascript:;" @click="list.push(false)">点我</a>
+    <a href="javascript:;" @click="list.pop(false)">删除</a>
   </div>
 </template>
 

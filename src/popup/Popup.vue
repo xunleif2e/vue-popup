@@ -120,19 +120,39 @@ export default {
   methods: {
     // 添加触发元素
     addItem (item) {
-      item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
+      item.el.handleVisible = this.handleVisible.bind(this, item.value, item.el)
+      item.el.addEventListener(this.triggerEvent, item.el.handleVisible)
 
       if (this.trigger !== 'click') {
-        item.el.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
+        item.el.handleInvisible = this.handleInvisible.bind(this, item.value)
+        item.el.addEventListener(this.unTriggerEvent, item.el.handleInvisible)
       }
 
       this.bindScroll(item.el) // bind scroll event
     },
-    // bind all element's grandparent scroll event
+    // 移除触发元素
+    removeItem (item) {
+      item.el.removeEventListener(this.triggerEvent, item.el.handleVisible)
+      
+      if (this.trigger !== 'click') {
+        item.el.removeEventListener(this.unTriggerEvent, item.el.handleInvisible)
+      }
+
+      this.unbindScroll(item.el)
+    },
+    // 绑定滚动事件
     bindScroll (el) {
       el = el.parentNode
       while (el) {
         el.addEventListener('scroll', this.handleScroll)
+        el = el.parentNode
+      }
+    },
+    // 解绑滚动事件
+    unbindScroll (el) {
+      el = el.parentNode
+      while (el) {
+        el.removeEventListener('scroll', this.handleScroll)
         el = el.parentNode
       }
     },
