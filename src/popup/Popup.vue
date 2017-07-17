@@ -122,11 +122,11 @@ export default {
 
       this.bindScroll(item.el) // bind scroll event
     },
-    
+
     // 移除触发元素
     removeItem (item) {
       item.el.removeEventListener(this.triggerEvent, item.el.handleVisible)
-      
+
       if (this.trigger !== 'click') {
         item.el.removeEventListener(this.unTriggerEvent, item.el.handleInvisible)
       }
