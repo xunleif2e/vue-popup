@@ -12,6 +12,7 @@
 <script>
 export default {
   name: 'Popup',
+
   props: {
     // 是否放到 body 下
     appendToBody: {
@@ -44,6 +45,7 @@ export default {
       default: true
     }
   },
+
   data () {
     return {
       arrowStyle: {},
@@ -59,6 +61,7 @@ export default {
       willHide: false // 延时后是否消失
     }
   },
+
   computed: {
     directionClass () {
       if (this.secondDirection === '') return 'popup-' + this.direction
@@ -85,50 +88,53 @@ export default {
       }
     }
   },
+
   mounted () {
     this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
 
     // 鼠标进入弹出框时，弹出框不消失
-    this.$el.addEventListener(this.triggerEvent, e => {
-      e.stopPropagation()
-      this.willHide = false
-      this.$emit('update:display', true)
-      this.$emit('show', this.value)
-    })
+    this.$el.addEventListener(this.triggerEvent, this.handlePopupVisible)
 
     // 鼠标离开弹出框时，弹出框消失
-    this.unTriggerEl.addEventListener(this.unTriggerEvent, e => {
-      // 若触发类型为点击，且点击发生在当前触发元素上时，弹出框不消失，
-      if (this.trigger === 'click' && this.isClosest(e.target, this.currentElement)) {
-        return
-      }
-
-      if (this.trigger === 'click') {
-        this.$emit('update:display', false)
-        this.$emit('hide', this.value)
-      } else {
-        this.willHide = true
-        setTimeout(() => {
-          if (this.willHide) {
-            this.$emit('update:display', false)
-            this.$emit('hide', this.value)
-          }
-        }, this.delay)
-      }
-    })
+    this.unTriggerEl.addEventListener(this.unTriggerEvent, this.handlePopupInvisible)
   },
+
+  beforeDestroy () {
+    console.log('beforeDestory')
+    this.$el.removeEventListener(this.triggerEvent, this.handlePopupVisible)
+    this.unTriggerEl.removeEventListener(this.unTriggerEvent, this.handlePopupInvisible)
+  },
+
+  destroyed () {
+    console.log('destoryed')
+  },
+
   methods: {
     // 添加触发元素
     addItem (item) {
-      item.el.addEventListener(this.triggerEvent, this.handleVisible.bind(this, item.value, item.el))
+      item.el.handleVisible = this.handleVisible.bind(this, item.value, item.el)
+      item.el.addEventListener(this.triggerEvent, item.el.handleVisible)
 
       if (this.trigger !== 'click') {
-        item.el.addEventListener(this.unTriggerEvent, this.handleInvisible.bind(this, item.value))
+        item.el.handleInvisible = this.handleInvisible.bind(this, item.value)
+        item.el.addEventListener(this.unTriggerEvent, item.el.handleInvisible)
       }
 
       this.bindScroll(item.el) // bind scroll event
     },
-    // bind all element's grandparent scroll event
+    
+    // 移除触发元素
+    removeItem (item) {
+      item.el.removeEventListener(this.triggerEvent, item.el.handleVisible)
+      
+      if (this.trigger !== 'click') {
+        item.el.removeEventListener(this.unTriggerEvent, item.el.handleInvisible)
+      }
+
+      this.unbindScroll(item.el)
+    },
+
+    // 绑定滚动事件
     bindScroll (el) {
       el = el.parentNode
       while (el) {
@@ -136,6 +142,16 @@ export default {
         el = el.parentNode
       }
     },
+
+    // 解绑滚动事件
+    unbindScroll (el) {
+      el = el.parentNode
+      while (el) {
+        el.removeEventListener('scroll', this.handleScroll)
+        el = el.parentNode
+      }
+    },
+
     // compute the popup left and top relative to viewport
     computePosition (root, target) {
       root = root.getBoundingClientRect() // get popup root dom rect
@@ -213,6 +229,7 @@ export default {
       this.top = top
       this.left = left
     },
+
     // 处理弹出框可见时
     handleVisible (value, el, e) {
       this.willHide = false
@@ -223,6 +240,7 @@ export default {
         this.computePosition(this.$el, this.currentElement)
       })
     },
+
     // 处理弹出框不可见时
     handleInvisible (value, e) {
       if (this.trigger === 'click') {
@@ -238,6 +256,7 @@ export default {
         }, this.delay)
       }
     },
+
     // recompute when scroll
     handleScroll () {
       // 滚动时可见，计算弹出框位置
@@ -251,6 +270,34 @@ export default {
         this.$emit('hide')
       }
     },
+
+    handlePopupVisible (e) {
+      e.stopPropagation()
+      this.willHide = false
+      this.$emit('update:display', true)
+      this.$emit('show', this.value)
+    },
+
+    handlePopupInvisible (e) {
+      // 若触发类型为点击，且点击发生在当前触发元素上时，弹出框不消失，
+      if (this.trigger === 'click' && this.isClosest(e.target, this.currentElement)) {
+        return
+      }
+
+      if (this.trigger === 'click') {
+        this.$emit('update:display', false)
+        this.$emit('hide', this.value)
+      } else {
+        this.willHide = true
+        setTimeout(() => {
+          if (this.willHide) {
+            this.$emit('update:display', false)
+            this.$emit('hide', this.value)
+          }
+        }, this.delay)
+      }
+    },
+
     // whether it is in direction line
     isDirectionLine (direction) {
       if (direction === 'top' || direction === 'bottom') {

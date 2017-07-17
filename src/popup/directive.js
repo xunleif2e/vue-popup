@@ -6,5 +6,13 @@ module.exports = {
       el,
       value: binding.value
     })
+  },
+  unbind (el, binding, vnode) {
+    let popup = vnode.context.$refs[binding.arg]
+
+    popup.removeItem({
+      el,
+      value: binding.value
+    })
   }
 }

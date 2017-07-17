@@ -1,6 +1,7 @@
 # vue-popup
 
 [![Build Status](https://travis-ci.org/beyoursun/vue-popup.svg?branch=master)](https://travis-ci.org/beyoursun/vue-popup)
+[![GitHub tag](https://img.shields.io/github/tag/beyoursun/vue-popup.svg)](https://github.com/beyoursun/vue-popup/releases/tag/0.3.4)
 
 > 一个 Vue.js 弹出框组件，供迅雷内部使用。受到 [Element Popover](http://element.eleme.io/#/zh-CN/component/popover) 的启发。
 
@@ -175,6 +176,10 @@ npm run build
 ### 0.3.3 | 2017.7.11
 
 - 新增 页面滚动时弹出框是否可见配置
+
+### 0.3.5 | 2017.7.17
+
+- 更新 指令解绑或组件销毁时解绑相关事件
 
 ## License
 
