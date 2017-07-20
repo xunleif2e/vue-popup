@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import Popup from './popup'
+
 export default {
   name: 'Popup',
 
@@ -90,7 +92,9 @@ export default {
   },
 
   mounted () {
-    this.appendToBody && document.body.appendChild(this.$el) // 将弹出框移动到 body 下
+    window.popup = new Popup(this.$el, {
+      appendToBody: this.appendToBody
+    })
 
     // 鼠标进入弹出框时，弹出框不消失
     this.$el.addEventListener(this.triggerEvent, this.handlePopupVisible)
