@@ -2,7 +2,7 @@ module.exports = {
   inserted (el, binding, vnode) {
     let popup = vnode.context.$refs[binding.arg]
 
-    popup.addItem({
+    popup && popup.addItem({
       el,
       value: binding.value
     })
@@ -10,7 +10,7 @@ module.exports = {
   unbind (el, binding, vnode) {
     let popup = vnode.context.$refs[binding.arg]
 
-    popup.removeItem({
+    popup && popup.removeItem({
       el,
       value: binding.value
     })

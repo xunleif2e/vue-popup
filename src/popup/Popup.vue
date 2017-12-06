@@ -100,13 +100,15 @@ export default {
   },
 
   beforeDestroy () {
-    console.log('beforeDestory')
     this.$el.removeEventListener(this.triggerEvent, this.handlePopupVisible)
     this.unTriggerEl.removeEventListener(this.unTriggerEvent, this.handlePopupInvisible)
   },
 
   destroyed () {
-    console.log('destoryed')
+    // 将弹出框手动移除
+    if (this.appendToBody && this.$el && document.body.hasChildNodes(this.$el)) {
+      document.body.removeChild(this.$el)
+    }
   },
 
   methods: {
