@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <a href="javscript:;" @click="show = !show">切换显示</a>
+    <div v-if="show">
     <popup
       arrow-class="drop-arrow"
       class="drop-msg-fail"
@@ -22,6 +24,7 @@
       </a>
     </div>
     <a href="javascript:;" @click="list.pop(false)">删除</a>
+    </div>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ export default {
   name: 'app',
   data () {
     return {
+      show: true,
       current: 0,
       showPopup: false,
       list: Array.from({ length: 10 }, () => false)
