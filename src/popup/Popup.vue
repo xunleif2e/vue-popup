@@ -165,40 +165,71 @@ export default {
       let rightValue = target.left + target.width + this.padding
       let bottomValue = target.top + target.height + this.padding
       let leftValue = target.left - root.width - this.padding
-
-      if (this.direction === 'top' || this.direction === 'bottom') {
+      const updownReg = /(top)|(bottom)/i
+      const lergtReg = /(left)|(right)/i
+      if (updownReg.test(this.direction)) {
         left = target.left + (target.width - root.width) / 2
+        if (this.direction === 'bottomStart' || this.direction === 'topStart') {
+          left = target.left
+        }
+        if (this.direction === 'bottomEnd' || this.direction === 'topEnd') {
+          left = target.left - root.width + target.width
+        }
 
         if (left < 0) { // 弹出框左边缘超出视区时
           left = 0
           this.arrowStyle = { left: (target.left + target.right) / 2 + 'px' }
+
         } else if (left + root.width > window.innerWidth) { // 弹出框右边缘超出视区时
           left = window.innerWidth - root.width
           this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
         } else { // 弹出框水平方向完全在视区
-          delete this.arrowStyle.left
+          this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
         }
 
-        if (this.direction === 'top') {
+        if (this.direction === 'top' || this.direction === 'topStart' || this.direction === 'topEnd') {
           if (topValue < 0 && bottomValue + root.height <= window.innerHeight) {
             top = bottomValue
             this.secondDirection = 'bottom'
+            if (this.direction === 'topStart') {
+              this.secondDirection = 'bottomStart'
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+            }
+            if (this.direction === 'topEnd') {
+              this.secondDirection = 'bottomEnd'
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+            }
           } else {
             top = topValue
             this.secondDirection = ''
+            this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
           }
         } else {
           if (bottomValue + root.height > window.innerHeight && topValue >= 0) {
             top = topValue
             this.secondDirection = 'top'
+            if (this.direction === 'bottomStart') {
+              this.secondDirection = 'topStart'
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+            }
+            if (this.direction === 'bottomEnd') {
+              this.secondDirection = 'topEnd'
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+            }
           } else {
             top = bottomValue
             this.secondDirection = ''
+            this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
           }
         }
-      } else if (this.direction === 'left' || this.direction === 'right') {
+      } else if (lergtReg.test(this.direction)) {
         top = target.top + (target.height - root.height) / 2
-
+        if (this.direction === 'leftStart' || this.direction === 'rightStart') {
+          top = target.top
+        }
+        if (this.direction === 'leftEnd' || this.direction === 'rightEnd') {
+          top = target.top - root.height + target.height
+        }
         if (top < 0) { // 弹出框上边缘超出视区时
           top = 0
           this.arrowStyle = { top: (target.top + target.bottom) / 2 + 'px' }
@@ -206,24 +237,42 @@ export default {
           top = window.innerHeight - root.height
           this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
         } else { // 弹出框水平方向完全在视区
-          delete this.arrowStyle.top
+          this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
         }
 
-        if (this.direction === 'left') {
+        if (this.direction === 'left' || this.direction === 'leftStart' || this.direction === 'leftEnd') {
           if (leftValue < 0 && rightValue + root.width <= window.innerWidth) {
             left = rightValue
             this.secondDirection = 'right'
+            if (this.direction === 'leftStart') {
+              this.secondDirection = 'rightStart'
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px', }
+            }
+            if (this.direction === 'leftEnd') {
+              this.secondDirection = 'rightEnd'
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+            }
           } else {
             left = leftValue
             this.secondDirection = ''
+            this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
           }
         } else {
           if (rightValue + root.width > window.innerWidth && leftValue >= 0) {
             left = leftValue
             this.secondDirection = 'left'
+            if (this.direction === 'rightStart') {
+              this.secondDirection = 'leftStart'
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+            }
+            if (this.direction === 'rightEnd') {
+              this.secondDirection = 'leftEnd'
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+            }
           } else {
             left = rightValue
             this.secondDirection = ''
+            this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
           }
         }
       }

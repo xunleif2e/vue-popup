@@ -5,7 +5,7 @@
     <popup
       arrow-class="drop-arrow"
       class="drop-msg-fail"
-      direction="right"
+      direction="leftStart"
       :display.sync="showPopup"
       :padding="0"
       trigger="click"
