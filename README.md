@@ -74,7 +74,7 @@ export default {
 -- | -- | -- | -- | --
 append-to-body | 是否放到 body 下 | Boolean | - | true
 arrow-class | 箭头的类 | String | - | -
-direction | 弹出框方向 | String | top/right/bottom/left | bottom
+direction | 弹出框方向 | String | top/topStart/topEnd/right/rightStart/rightEnd/bottom/bottomStart/bottomEnd/left/leftStart/leftEnd | bottom
 display (.sync) | 是否可见 | Boolean | - | false
 padding | 弹出框与触发元素的间距 | Number | - | 0
 trigger | 触发弹出框的事件类型 | String | hover/focus/click | hover
