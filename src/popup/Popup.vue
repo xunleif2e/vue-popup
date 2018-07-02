@@ -64,8 +64,13 @@ export default {
 
   computed: {
     directionClass () {
-      if (this.secondDirection === '') return 'popup-' + this.direction
-      else return 'popup-' + this.secondDirection
+      const reg = /(top)|(bottom)|(left)|(right)/i
+      let transDirection = reg.exec(this.direction) || []
+      let secDirection = this.secondDirection ? reg.exec(this.secondDirection)[0] : ''
+      let direction = transDirection[0] || ''
+
+      if (secDirection === '') return 'popup-' + direction
+      else return 'popup-' + secDirection
     },
     // 触发事件
     triggerEvent () {

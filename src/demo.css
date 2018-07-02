@@ -23,11 +23,3 @@ body{--colorLight:#41a1ff;}
 .drop-msg-fail.popup-right .drop-arrow { left: -4px; top: 50%; margin-top: -4px; }
 .drop-msg-fail.popup-top .drop-arrow { bottom: -4px; left: 50%; margin-left: -4px; }
 .drop-msg-fail.popup-bottom .drop-arrow { top: -4px; left: 50%; margin-left: -4px; }
-.drop-msg-fail.popup-leftStart .drop-arrow { right: -4px; top: 32%; margin-top: -4px; }
-.drop-msg-fail.popup-rightStart .drop-arrow { left: -4px; top: 32%; margin-top: -4px; }
-.drop-msg-fail.popup-topStart .drop-arrow { bottom: -4px; left: 50%; margin-left: -4px; }
-.drop-msg-fail.popup-bottomStart .drop-arrow { top: -4px; left: 50%; margin-left: -4px; }
-.drop-msg-fail.popup-leftEnd .drop-arrow { right: -4px; top: 50%; margin-top: -4px; }
-.drop-msg-fail.popup-rightEnd .drop-arrow { left: -4px; top: 50%; margin-top: -4px; }
-.drop-msg-fail.popup-topEnd .drop-arrow { bottom: -4px; left: 50%; margin-left: -4px; }
-.drop-msg-fail.popup-bottomEnd .drop-arrow { top: -4px; left: 50%; margin-left: -4px; }
