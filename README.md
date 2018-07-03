@@ -1,9 +1,10 @@
 # vue-popup
 
-[![Travis](https://img.shields.io/travis/beyoursun/vue-popup.svg)](https://travis-ci.org/beyoursun/vue-popup)
-[![GitHub tag](https://img.shields.io/github/tag/beyoursun/vue-popup.svg)](https://github.com/beyoursun/vue-popup/releases/tag/0.3.4)
+[![Travis](https://img.shields.io/travis/xunleif2e/vue-popup.svg)](https://travis-ci.org/xunleif2e/vue-popup)
+![npm (scoped)](https://img.shields.io/npm/v/@xunlei/vue-popup.svg)
 
-> 一个 Vue.js 弹出框组件。受到 [Element Popover](http://element.eleme.io/#/zh-CN/component/popover) 的启发。
+
+> Vue 2.x 右键菜单组件。
 
 ![popup](./popup.jpg)
 
