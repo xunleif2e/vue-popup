@@ -354,6 +354,15 @@ export default {
       }
     },
 
+    // 展示弹出框
+    show (el, value) {
+      this.handleVisible(value, el)
+    },
+
+    hide () {
+      this.handleInvisible()
+    },
+
     // whether it is in direction line
     isDirectionLine (direction) {
       if (direction === 'top' || direction === 'bottom') {
