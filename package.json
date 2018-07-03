@@ -8,12 +8,14 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 8082",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "test": "echo \"no test command\"",
-    "lint": "eslint --ext js,vue src/"
+    "lint": "eslint --ext js,vue src/",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-env": "^1.5.1",
+    "conventional-changelog-cli": "^2.0.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "eslint": "^4.2.0",
