@@ -184,7 +184,6 @@ export default {
         if (left < 0) { // 弹出框左边缘超出视区时
           left = 0
           this.arrowStyle = { left: (target.left + target.right) / 2 + 'px' }
-
         } else if (left + root.width > window.innerWidth) { // 弹出框右边缘超出视区时
           left = window.innerWidth - root.width
           this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
@@ -198,16 +197,16 @@ export default {
             this.secondDirection = 'bottom'
             if (this.direction === 'topStart') {
               this.secondDirection = 'bottomStart'
-              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
             }
             if (this.direction === 'topEnd') {
               this.secondDirection = 'bottomEnd'
-              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
             }
           } else {
             top = topValue
             this.secondDirection = ''
-            this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+            this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
           }
         } else {
           if (bottomValue + root.height > window.innerHeight && topValue >= 0) {
@@ -215,16 +214,16 @@ export default {
             this.secondDirection = 'top'
             if (this.direction === 'bottomStart') {
               this.secondDirection = 'topStart'
-              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
             }
             if (this.direction === 'bottomEnd') {
               this.secondDirection = 'topEnd'
-              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+              this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
             }
           } else {
             top = bottomValue
             this.secondDirection = ''
-            this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px'}
+            this.arrowStyle = { left: (target.left + target.right) / 2 - left + 'px' }
           }
         }
       } else if (lergtReg.test(this.direction)) {
@@ -251,16 +250,16 @@ export default {
             this.secondDirection = 'right'
             if (this.direction === 'leftStart') {
               this.secondDirection = 'rightStart'
-              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px', }
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
             }
             if (this.direction === 'leftEnd') {
               this.secondDirection = 'rightEnd'
-              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
             }
           } else {
             left = leftValue
             this.secondDirection = ''
-            this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+            this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
           }
         } else {
           if (rightValue + root.width > window.innerWidth && leftValue >= 0) {
@@ -268,16 +267,16 @@ export default {
             this.secondDirection = 'left'
             if (this.direction === 'rightStart') {
               this.secondDirection = 'leftStart'
-              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
             }
             if (this.direction === 'rightEnd') {
               this.secondDirection = 'leftEnd'
-              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+              this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
             }
           } else {
             left = rightValue
             this.secondDirection = ''
-            this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px'}
+            this.arrowStyle = { top: (target.top + target.bottom) / 2 - top + 'px' }
           }
         }
       }
