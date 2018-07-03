@@ -1,6 +1,6 @@
 {
   "name": "@xunlei/vue-popup",
-  "description": "一个 Vue.js 弹出框组件，供迅雷内部使用。",
+  "description": "Vue.js 弹出框组件",
   "version": "0.4.0",
   "author": "binbin <sunbinbin@xunlei.com>",
   "main": "dist/vue-popup.js",
@@ -33,6 +33,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/beyoursun/vue-popup.git"
+    "url": "https://github.com/xunleif2e/vue-popup.git"
   }
 }
