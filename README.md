@@ -33,7 +33,7 @@ npm install @xunlei/vue-popup --save
 
 ```js
 import Vue from 'vue'
-import VuePopup from 'vue-popup'
+import VuePopup from '@xunlei/vue-popup'
 
 Vue.use(VuePopup)
 ```
