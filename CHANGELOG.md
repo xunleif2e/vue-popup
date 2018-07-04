@@ -1,3 +1,8 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/xunleif2e/vue-popup/compare/v1.0.0...v1.0.1) (2018-07-04)
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/xunleif2e/vue-popup/compare/0.3.5...1.0.0) (2018-07-03)
 
