@@ -1,7 +1,7 @@
 # vue-popup
 
 [![Travis](https://img.shields.io/travis/xunleif2e/vue-popup.svg?style=for-the-badge)](https://travis-ci.org/xunleif2e/vue-popup)
-[![npm](https://img.shields.io/npm/v/npm.svg?style=for-the-badge)](https://www.npmjs.com/package/@xunlei/vue-popup)
+[![npm](https://img.shields.io/npm/v/@xunlei/vue-popup.svg?style=for-the-badge)](https://www.npmjs.com/package/@xunlei/vue-popup)
 
 > Vue 2.x 右键菜单组件
 
