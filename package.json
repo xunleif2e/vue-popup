@@ -1,7 +1,7 @@
 {
   "name": "@xunlei/vue-popup",
   "description": "Vue 2.x 右键菜单组件",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "binbin <sunbinbin@xunlei.com>",
   "main": "dist/vue-popup.js",
   "types": "types/index.d.ts",
