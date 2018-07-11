@@ -289,8 +289,15 @@ export default {
     handleVisible (value, el, e) {
       this.willHide = false
       this.currentElement = el
-      this.$emit('update:display', true)
-      this.$emit('show', value)
+
+      if (this.trigger === 'click') {
+        this.$emit('update:display', !this.display)
+        this.$emit(this.display ? 'hide' : 'show', value)
+      } else {
+        this.$emit('update:display', true)
+        this.$emit('show', value)
+      }
+
       this.$nextTick(() => {
         this.computePosition(this.$el, this.currentElement)
       })
