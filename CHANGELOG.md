@@ -1,3 +1,13 @@
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/xunleif2e/vue-popup/compare/v1.0.3...v1.0.4) (2018-08-11)
+
+
+### Features
+
+* 窗口大小变化时，重新计算弹出框位置 ([d06c679](https://github.com/xunleif2e/vue-popup/commit/d06c679))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/xunleif2e/vue-popup/compare/v1.0.0...v1.0.1) (2018-07-04)
 
