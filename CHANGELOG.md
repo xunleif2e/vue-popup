@@ -1,3 +1,13 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/xunleif2e/vue-popup/compare/v1.0.5...v1.0.6) (2018-08-11)
+
+
+### Bug Fixes
+
+* resize 时异步执行位置计算 ([6943eb2](https://github.com/xunleif2e/vue-popup/commit/6943eb2))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/xunleif2e/vue-popup/compare/v1.0.3...v1.0.4) (2018-08-11)
 
