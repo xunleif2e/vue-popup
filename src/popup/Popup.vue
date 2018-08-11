@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { throttle } from './helper'
+
 export default {
   name: 'Popup',
 
@@ -102,11 +104,15 @@ export default {
 
     // 鼠标离开弹出框时，弹出框消失
     this.unTriggerEl.addEventListener(this.unTriggerEvent, this.handlePopupInvisible)
+
+    this.handleResizeThrottle = throttle(this.handleResize, 16)
+    window.addEventListener('resize', this.handleResizeThrottle)
   },
 
   beforeDestroy () {
     this.$el.removeEventListener(this.triggerEvent, this.handlePopupVisible)
     this.unTriggerEl.removeEventListener(this.unTriggerEvent, this.handlePopupInvisible)
+    window.removeEventListener('resize', this.handleResizeThrottle)
   },
 
   destroyed () {
@@ -286,17 +292,17 @@ export default {
     },
 
     // 处理弹出框可见时
-    handleVisible (value, el, e) {
+    handleVisible (value, el, forceShow) {
+      // 第二次点击引用元素会隐藏弹出框
+      if (this.trigger === 'click' && this.display && forceShow !== true) {
+        return this.handleInvisible(value)
+      }
+
       this.willHide = false
       this.currentElement = el
-
-      if (this.trigger === 'click') {
-        this.$emit('update:display', !this.display)
-        this.$emit(this.display ? 'hide' : 'show', value)
-      } else {
-        this.$emit('update:display', true)
-        this.$emit('show', value)
-      }
+      this.currentValue = value
+      this.$emit('update:display', true)
+      this.$emit('show', value)
 
       this.$nextTick(() => {
         this.computePosition(this.$el, this.currentElement)
@@ -304,7 +310,7 @@ export default {
     },
 
     // 处理弹出框不可见时
-    handleInvisible (value, e) {
+    handleInvisible (value) {
       if (this.trigger === 'click') {
         this.$emit('update:display', false)
         this.$emit('hide', value)
@@ -357,6 +363,12 @@ export default {
             this.$emit('hide', this.value)
           }
         }, this.delay)
+      }
+    },
+
+    handleResize () {
+      if (this.display) {
+        this.handleVisible(this.value, this.currentElement, true)
       }
     },
 
