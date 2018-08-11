@@ -305,7 +305,9 @@ export default {
       this.$emit('show', value)
 
       this.$nextTick(() => {
-        this.computePosition(this.$el, this.currentElement)
+        setTimeout(() => {
+          this.computePosition(this.$el, this.currentElement)
+        })
       })
     },
 
