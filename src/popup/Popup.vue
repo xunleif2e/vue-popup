@@ -57,8 +57,8 @@ export default {
         left: 'width'
       },
       secondDirection: '',
-      left: 0,
-      top: 0,
+      left: -999,
+      top: -999,
       currentElement: null, // current trigger element
       willHide: false // 延时后是否消失
     }
