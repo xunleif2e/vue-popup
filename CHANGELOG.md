@@ -1,3 +1,13 @@
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/xunleif2e/vue-popup/compare/v1.0.6...v1.0.7) (2018-09-12)
+
+
+### Bug Fixes
+
+* 首次出现会闪现 ([769daf3](https://github.com/xunleif2e/vue-popup/commit/769daf3))
+
+
+
 <a name="1.0.6"></a>
 ## [1.0.6](https://github.com/xunleif2e/vue-popup/compare/v1.0.5...v1.0.6) (2018-08-11)
 
